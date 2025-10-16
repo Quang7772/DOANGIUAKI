@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+/* ===== Banner ===== */
+.banner {
+  height: 120px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.banner img {
+  max-height: 100px;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== Menu Trái ===== */
+.menutrai {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#menutrai {
+  font-size: 14px;
+}
+
+#menutrai ul {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+#menutrai ul li {
+  list-style: none;
+}
+
+/* ===== Link Menu ===== */
+a.menutrai:link,
+a.menutrai:visited {
+  color: #b22d30;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+a.menutrai:hover {
+  color: #fff;
+  background-color: #b22d30;
+  box-shadow: 0 3px 6px rgba(178, 45, 48, 0.3);
+}
+
+a.menutrai:active {
+  background-color: #8e1e21;
+  color: #fff;
+}
+
+/* ===== Thanh Menubar đỏ ===== */
+.menubar {
+  background-color: #b22d30;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive nhẹ */
+@media (max-width: 768px) {
+  .menutrai {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #menutrai ul {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .banner {
+    height: auto;
+    padding: 10px;
+  }
+
+  .menubar {
+    font-size: 14px;
+  }
+}
