@@ -1,61 +1,131 @@
+/* ===== Modern Table Style (2025 Edition) ===== */
 .my-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   background-color: #fff;
-  font-family: "Segoe UI", "Times New Roman", serif;
-  font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  font-family: "Inter", "Segoe UI", "Times New Roman", serif;
+  font-size: 15px;
+  color: #333;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
 }
 
-/* Header */
+/* ===== Table Header ===== */
+.my-table thead {
+  background: linear-gradient(135deg, #b22d30, #e03b3f);
+}
+
 .my-table th {
-  background-color: #b22d30;
-  color: white;
+  color: #fff;
   font-weight: 600;
   text-align: center;
-  padding: 10px 12px;
-  border-bottom: 2px solid #a12628;
+  padding: 14px 16px;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
 }
 
-/* Dòng dữ liệu */
+/* ===== Table Rows ===== */
 .my-table td {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px 12px;
-  text-align: left;
-  color: #333;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-/* Dòng xen kẽ màu */
-.my-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+/* Alternate Row Color */
+.my-table tr:nth-child(even) td {
+  background-color: #fafafa;
 }
 
-/* Hover */
-.my-table tr:hover {
-  background-color: #f1f1f1;
-  transition: 0.3s ease;
+/* Hover Effect */
+.my-table tr:hover td {
+  background-color: #fff6f6;
+  transform: scale(1.01);
+  cursor: pointer;
 }
 
-/* Căn chỉnh cột cụ thể (tuỳ chọn) */
-.my-table td:first-child {
-  text-align: center;
-  width: 50px;
-}
-
+/* First Column - Centered */
+.my-table td:first-child,
 .my-table th:first-child {
   text-align: center;
+  width: 60px;
 }
 
-/* Responsive nhẹ */
+/* Rounded Corners for Table */
+.my-table tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+.my-table tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+.my-table tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.my-table tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/* ===== Subtle Row Animation ===== */
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.my-table tbody tr {
+  animation: fadeInRow 0.3s ease forwards;
+}
+
+/* ===== Responsive (Mobile) ===== */
 @media (max-width: 768px) {
   .my-table {
     font-size: 13px;
+    border-radius: 8px;
   }
 
   .my-table th,
   .my-table td {
-    padding: 8px;
+    padding: 8px 10px;
+  }
+
+  .my-table thead {
+    display: none;
+  }
+
+  .my-table tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .my-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .my-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #b22d30;
+    text-align: left;
+  }
+
+  .my-table td:last-child {
+    border-bottom: none;
   }
 }
