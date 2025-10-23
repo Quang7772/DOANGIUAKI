@@ -161,3 +161,14 @@ a.menutrai:active {
     padding: 12px 8px;
   }
 }
+.carousel {
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carousel img {
+  height: 400px;
+  object-fit: cover;
+}
