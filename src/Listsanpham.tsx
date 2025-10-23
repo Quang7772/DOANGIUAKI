@@ -2,15 +2,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Listsanpham = () => {
-  const [listproduct, setListProduct] = useState([]);
+interface Product {
+  id: string;
+  title: string;
+  image: string;
+  price: number;
+}
+
+const Listsanpham: React.FC = () => {
+  const [listProduct, setListProduct] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const LayDulieutuBackend = async () => {
       try {
-        const res = await axios.get(
+        const res = await axios.get<Product[]>(
           "https://68f97a99ef8b2e621e7c302b.mockapi.io/products"
         );
 
@@ -20,7 +29,7 @@ const Listsanpham = () => {
           setError("Không có dữ liệu sản phẩm!");
         }
       } catch (err) {
-        console.error("Lỗi khi tải dữ liệu:", err.message);
+        console.error("Lỗi khi tải dữ liệu:", err);
         setError("Không thể tải dữ liệu từ máy chủ!");
       } finally {
         setLoading(false);
@@ -29,8 +38,6 @@ const Listsanpham = () => {
 
     LayDulieutuBackend();
   }, []);
-
-  const navigate = useNavigate();
 
   if (loading) return <p>Đang tải dữ liệu...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -45,7 +52,7 @@ const Listsanpham = () => {
           gap: "16px",
         }}
       >
-        {listproduct.map((p) => (
+        {listProduct.map((p) => (
           <div
             key={p.id}
             onClick={() => navigate(`/sanpham/${p.id}`)}
@@ -55,12 +62,18 @@ const Listsanpham = () => {
               padding: "10px",
               textAlign: "center",
               cursor: "pointer",
+              transition: "transform 0.2s, box-shadow 0.2s",
             }}
           >
             <img
               src={p.image}
               alt={p.title}
-              style={{ height: "180px", objectFit: "contain", width: "100%" }}
+              style={{
+                height: "180px",
+                objectFit: "contain",
+                width: "100%",
+                borderRadius: "8px",
+              }}
             />
             <h4>{p.title}</h4>
             <p>${p.price}</p>
