@@ -62,7 +62,7 @@ const Layout = () => {
 
       {/* ===== FOOTER ===== */}
       <footer className="footer">
-        © 2025 - Trường Đại học QDH. All rights reserved.
+        © 2025 - Trường Cao Đẳng QDH. All rights reserved.
       </footer>
     </div>
   );
