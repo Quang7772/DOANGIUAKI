@@ -172,3 +172,154 @@ a.menutrai:active {
   height: 400px;
   object-fit: cover;
 }
+/* ===== FOOTER MODERN STYLE (2025 Edition) ===== */
+.footer {
+  background: linear-gradient(135deg, #b22d30, #e03b3f);
+  color: #fff;
+  padding-top: 40px;
+  margin-top: 60px;
+  font-family: "Inter", "Poppins", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Container chia cột */
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  padding: 0 10%;
+  margin-bottom: 30px;
+}
+
+/* Logo + mô tả */
+.footer-logo {
+  width: 150px;
+  margin-bottom: 12px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #f5f5f5;
+}
+
+/* Cột chung */
+.footer-col h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.footer-col h4::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: #fff;
+  bottom: -6px;
+  left: 0;
+  border-radius: 2px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+  color: #f3f3f3;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #ffe5e5;
+  transform: translateX(3px);
+}
+
+/* Liên hệ */
+.footer-col p {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Mạng xã hội */
+.social-links {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.social-links a {
+  color: #fff;
+  font-size: 18px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: scale(1.15);
+  color: #ffe8e8;
+}
+
+/* Dòng cuối footer */
+.footer-bottom {
+  text-align: center;
+  padding: 18px 0;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+}
+
+/* Hiệu ứng nền gradient chuyển động nhẹ */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at top right,
+      rgba(255, 255, 255, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.1), transparent 70%);
+  animation: footerGlow 10s infinite alternate ease-in-out;
+}
+
+@keyframes footerGlow {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 6%;
+    gap: 20px;
+  }
+
+  .footer-col {
+    text-align: center;
+  }
+
+  .footer-col h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
