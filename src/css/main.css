@@ -1,74 +1,76 @@
-/* ===== Modern Table Style (2025 Edition) ===== */
+/* ===== Modern Elegant Table (2025 Deluxe Edition) ===== */
 .my-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   background-color: #fff;
-  font-family: "Inter", "Segoe UI", "Times New Roman", serif;
+  font-family: "Inter", "Poppins", "Segoe UI", sans-serif;
   font-size: 15px;
-  color: #333;
-  border-radius: 12px;
+  color: #2c2c2c;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
 }
 
 /* ===== Table Header ===== */
 .my-table thead {
-  background: linear-gradient(135deg, #b22d30, #e03b3f);
+  background: linear-gradient(135deg, #b22d30, #d93b3e);
 }
 
 .my-table th {
   color: #fff;
   font-weight: 600;
   text-align: center;
-  padding: 14px 16px;
-  letter-spacing: 0.3px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
   text-transform: uppercase;
+  font-size: 14px;
 }
 
-/* ===== Table Rows ===== */
+/* ===== Table Body ===== */
 .my-table td {
-  padding: 12px 16px;
+  padding: 13px 18px;
   border-bottom: 1px solid #eee;
-  transition: background-color 0.2s ease, transform 0.15s ease;
+  text-align: center;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
 /* Alternate Row Color */
 .my-table tr:nth-child(even) td {
-  background-color: #fafafa;
+  background-color: #fcfcfc;
 }
 
 /* Hover Effect */
 .my-table tr:hover td {
-  background-color: #fff6f6;
-  transform: scale(1.01);
+  background-color: #fff4f4;
+  transform: scale(1.005);
   cursor: pointer;
 }
 
-/* First Column - Centered */
+/* ===== First Column ===== */
 .my-table td:first-child,
 .my-table th:first-child {
   text-align: center;
-  width: 60px;
+  width: 70px;
 }
 
-/* Rounded Corners for Table */
+/* ===== Rounded Corners ===== */
 .my-table tr:first-child th:first-child {
-  border-top-left-radius: 12px;
+  border-top-left-radius: 14px;
 }
 .my-table tr:first-child th:last-child {
-  border-top-right-radius: 12px;
+  border-top-right-radius: 14px;
 }
 .my-table tr:last-child td:first-child {
-  border-bottom-left-radius: 12px;
+  border-bottom-left-radius: 14px;
 }
 .my-table tr:last-child td:last-child {
-  border-bottom-right-radius: 12px;
+  border-bottom-right-radius: 14px;
 }
 
-/* ===== Subtle Row Animation ===== */
+/* ===== Smooth Row Animation ===== */
 @keyframes fadeInRow {
   from {
     opacity: 0;
@@ -81,19 +83,19 @@
 }
 
 .my-table tbody tr {
-  animation: fadeInRow 0.3s ease forwards;
+  animation: fadeInRow 0.4s ease forwards;
 }
 
-/* ===== Responsive (Mobile) ===== */
+/* ===== Subtle Shadow on Hover ===== */
+.my-table:hover {
+  box-shadow: 0 8px 24px rgba(178, 45, 48, 0.15);
+}
+
+/* ===== Responsive (Mobile Friendly) ===== */
 @media (max-width: 768px) {
   .my-table {
     font-size: 13px;
-    border-radius: 8px;
-  }
-
-  .my-table th,
-  .my-table td {
-    padding: 8px 10px;
+    border-radius: 10px;
   }
 
   .my-table thead {
@@ -102,30 +104,46 @@
 
   .my-table tr {
     display: block;
-    margin-bottom: 12px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 14px;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
   }
 
   .my-table td {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 12px;
     text-align: right;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f4f4f4;
+    background: #fff;
   }
 
   .my-table td::before {
     content: attr(data-label);
     font-weight: 600;
-    text-transform: capitalize;
     color: #b22d30;
+    text-transform: capitalize;
     text-align: left;
+    flex: 1;
   }
 
   .my-table td:last-child {
     border-bottom: none;
+  }
+
+  .my-table tr:hover td {
+    transform: none;
+    background: #fff7f7;
+  }
+}
+
+/* ===== Optional Glass Effect for Modern UI ===== */
+@supports (backdrop-filter: blur(8px)) {
+  .my-table {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
   }
 }
