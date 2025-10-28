@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 
-interface SinhVien {
-  id: string;
-  hoten: string;
-  lop: string;
-  gioitinh: boolean;
-}
-
 const Home = () => {
   const str = "THỨ NĂM NGÀY 16/10/2025";
 
