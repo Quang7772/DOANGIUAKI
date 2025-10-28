@@ -1,8 +1,11 @@
+import React from "react";
+import "./asset/CSS/trang2.css";
+
 const Trang2 = () => {
   const dssv = [
     {
       id: 1,
-      hoten: "Nguyễn Văn An111",
+      hoten: "Nguyễn Văn An",
       lop: "K19",
       email: "abc@1234.edu.vn",
       anh: "https://htmediagroup.vn/wp-content/uploads/2022/11/Anh-58-copy-min.jpg.webp",
@@ -31,51 +34,19 @@ const Trang2 = () => {
   ];
 
   return (
-    <div
-      style={{
-        minHeight: "100vh", // Chiếm toàn bộ chiều cao màn hình
-        display: "flex",
-        justifyContent: "center", // Căn giữa ngang
-
-        backgroundColor: "#f9f9f9", // Tuỳ chọn
-        padding: "20px",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gap: "16px",
-          maxWidth: "1000px", // Giới hạn chiều rộng
-          width: "100%",
-        }}
-      >
-        {dssv.map((motsinhvien) => (
-          <div
-            key={motsinhvien.id}
-            style={{
-              height: "300px",
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "10px",
-              textAlign: "center",
-              backgroundColor: "#fff",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            }}
-          >
-            <img
-              src={motsinhvien.anh}
-              alt={motsinhvien.hoten}
-              style={{
-                height: "140px",
-
-                objectFit: "cover",
-                borderRadius: "6px",
-              }}
-            />
-            <h3 style={{ margin: "10px 0 5px" }}>{motsinhvien.hoten}</h3>
-            <p>{motsinhvien.lop}</p>
-            <p>{motsinhvien.email}</p>
+    <div className="student-page">
+      <h2 className="student-title">DANH SÁCH SINH VIÊN</h2>
+      <div className="student-grid">
+        {dssv.map((sv) => (
+          <div key={sv.id} className="student-card">
+            <div className="student-image">
+              <img src={sv.anh} alt={sv.hoten} />
+            </div>
+            <div className="student-info">
+              <h3>{sv.hoten}</h3>
+              <p className="lop">Lớp: {sv.lop}</p>
+              <p>{sv.email}</p>
+            </div>
           </div>
         ))}
       </div>
