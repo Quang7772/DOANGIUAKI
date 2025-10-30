@@ -10,17 +10,18 @@ import Trang1 from "./Trang1";
 import Trang2 from "./Trang2";
 import Listsanpham from "./Listsanpham";
 import Chitietsanpham from "./Chitietsanpham";
+import ListProducts_SP from "./ListProducts_SP";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<ListProducts_SP />} />
           <Route path="trang1" element={<Trang1 />} />
           <Route path="listsanpham" element={<Listsanpham />} />
           <Route path="sanpham/:id" element={<Chitietsanpham />} />
-          <Route path="trang2" element={<Trang2 />} />
+          <Route path="Trang2" element={<Trang2 />} />
         </Route>
       </Routes>
     </BrowserRouter>
