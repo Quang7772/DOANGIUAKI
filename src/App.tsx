@@ -11,6 +11,7 @@ import Trang2 from "./Trang2";
 import Listsanpham from "./Listsanpham";
 import Chitietsanpham from "./Chitietsanpham";
 import ListProducts_SP from "./ListProducts_SP";
+import ProductDetail from "./ProductDetail";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route index element={<ListProducts_SP />} />
           <Route path="trang1" element={<Trang1 />} />
           <Route path="listsanpham" element={<Listsanpham />} />
+          <Route path="detail/:id" element={<ProductDetail />} />
           <Route path="sanpham/:id" element={<Chitietsanpham />} />
           <Route path="Trang2" element={<Trang2 />} />
         </Route>
