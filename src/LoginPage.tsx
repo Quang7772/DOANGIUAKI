@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import anhlogo1 from "./asset/CSS/images/keylogin.png";
+import "./asset/CSS/login.css";
 
-const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
 
     setTimeout(() => {
-      if (username === "admin" && password === "123456") {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ username: "admin", role: "admin" })
-        );
-        alert("✅ Đăng nhập thành công với quyền Admin!");
-        navigate("/admin/products");
-      } else if (username && password) {
+      if (username.trim() && password.trim()) {
         localStorage.setItem(
           "user",
           JSON.stringify({ username, role: "user" })
@@ -30,112 +25,63 @@ const LoginPage: React.FC = () => {
         alert("❌ Vui lòng nhập đầy đủ thông tin!");
       }
       setLoading(false);
-    }, 1200);
+    }, 1000);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
-      <div className="bg-white/80 backdrop-blur-lg shadow-2xl border border-gray-200 rounded-2xl p-10 w-[380px] text-center">
-        {/* Logo */}
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-          alt="Logo"
-          className="w-12 h-12 mx-auto mb-4"
-        />
+    <div className="login-wrapper">
+      <div className="login-card">
+        <img src={anhlogo1} alt="Logo" className="login-logo" />
 
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-1">
-          Đăng nhập tài khoản
-        </h2>
-        <p className="text-gray-500 text-sm mb-6">
-          Chào mừng bạn quay trở lại! 👋
-        </p>
+        <h2 className="login-title">Đăng nhập vào tài khoản</h2>
+        <p className="login-subtitle">Sử dụng tài khoản của bạn để tiếp tục</p>
 
-        {/* Form */}
-        <form onSubmit={handleLogin} className="space-y-5 text-left">
-          {/* Username */}
-          <div>
-            <label className="text-sm text-gray-600">Tên đăng nhập</label>
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="form-group">
+            <label>Tên đăng nhập</label>
             <input
               type="text"
-              placeholder="Nhập email hoặc username..."
+              placeholder="Nhập tên đăng nhập..."
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:outline-none 
-                         focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
 
-          {/* Password */}
-          <div>
-            <label className="text-sm text-gray-600">Mật khẩu</label>
+          <div className="form-group">
+            <label>Mật khẩu</label>
             <input
               type="password"
               placeholder="Nhập mật khẩu..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:outline-none 
-                         focus:ring-2 focus:ring-blue-500 transition-all"
             />
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white 
-                       font-medium py-3 rounded-lg shadow-lg hover:from-blue-700 
-                       hover:to-blue-600 transition-all disabled:opacity-60"
-          >
+          <button type="submit" disabled={loading}>
             {loading ? "⏳ Đang xử lý..." : "Đăng nhập"}
           </button>
         </form>
 
-        {/* Register link */}
-        <p className="mt-6 text-sm text-gray-600">
-          Bạn chưa có tài khoản?{" "}
-          <Link
-            to="/register"
-            className="text-blue-600 font-medium hover:underline"
-          >
-            Tạo ngay
-          </Link>
+        <p className="register-link">
+          Bạn chưa có tài khoản? <a href="#">Tạo tài khoản mới</a>
         </p>
 
-        {/* Social Login */}
-        <div className="mt-8">
-          <p className="text-gray-500 text-sm mb-3">Hoặc đăng nhập bằng</p>
-          <div className="flex justify-center gap-4">
-            {/* Google */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 border rounded-lg 
-                         hover:bg-gray-100 transition"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png"
-                alt="Google"
-                className="w-5 h-5"
-              />
-              <span className="text-sm font-medium text-gray-700">Google</span>
-            </button>
+        <div className="social-login">
+          <button className="social-btn google">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png"
+              alt="Google"
+            />
+            <span>Đăng nhập Google</span>
+          </button>
 
-            {/* Facebook */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-4 py-2 border rounded-lg 
-                         hover:bg-gray-100 transition"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                alt="Facebook"
-                className="w-5 h-5"
-              />
-              <span className="text-sm font-medium text-gray-700">
-                Facebook
-              </span>
-            </button>
-          </div>
+          <button className="social-btn facebook">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+              alt="Facebook"
+            />
+            <span>Facebook</span>
+          </button>
         </div>
       </div>
     </div>

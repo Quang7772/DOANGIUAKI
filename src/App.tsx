@@ -41,7 +41,7 @@ const App: React.FC = () => {
           <Route
             path="admin/products"
             element={
-              <ProtectedRoute roleRequired="admin">
+              <ProtectedRoute>
                 <ListProducts_SP_Admin />
               </ProtectedRoute>
             }

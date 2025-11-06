@@ -1,21 +1,18 @@
-// ProtectedRoute.tsx
 import React from "react";
 import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  roleRequired?: string; // có thể bỏ qua nếu không cần quyền
+  roleRequired?: string; // quyền có thể là "admin" hoặc bỏ trống
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   roleRequired,
 }) => {
-  // ✅ Lấy user trong localStorage
   const userData = localStorage.getItem("user");
   const user = userData ? JSON.parse(userData) : null;
 
-  // ❌ Chưa đăng nhập → Chuyển đến login
   if (!user) {
     return (
       <Navigate
@@ -26,13 +23,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
-  // ❌ Không đủ quyền (ví dụ không phải admin)
   if (roleRequired === "admin" && user.username !== "admin") {
     alert("❌ Bạn không có quyền truy cập trang quản trị!");
     return <Navigate to="/" replace />;
   }
 
-  // ✅ Nếu hợp lệ → cho phép truy cập
   return <>{children}</>;
 };
 

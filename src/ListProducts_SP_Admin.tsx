@@ -1,8 +1,7 @@
-// ListProducts_SP_Admin.tsx
+// ✅ ListProducts_SP_Admin.tsx — UI Nâng Cấp
 import React, { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
 
-// ✅ Khai báo kiểu dữ liệu Product
 interface Product {
   id: number;
   title: string;
@@ -23,38 +22,38 @@ const ListProducts_SP_Admin: React.FC = () => {
     rating_count: 0,
   });
 
-  // ✅ Lấy danh sách sản phẩm
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("product1")
       .select("*")
       .order("id", { ascending: true });
-
-    if (error) console.error("Lỗi khi tải sản phẩm:", error.message);
-    else setProducts(data as Product[]);
+    if (!error) setProducts(data as Product[]);
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  // ✅ Input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (editingProduct) {
-      setEditingProduct({ ...editingProduct, [name]: value });
-    } else {
-      setNewProduct({ ...newProduct, [name]: value });
-    }
+    editingProduct
+      ? setEditingProduct({ ...editingProduct, [name]: value })
+      : setNewProduct({ ...newProduct, [name]: value });
   };
 
-  // ✅ Thêm sản phẩm
-  const handleAdd = async (e: React.FormEvent) => {
+  const handleAddOrEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase.from("product1").insert([newProduct]);
-    if (error) alert("❌ Lỗi khi thêm sản phẩm: " + error.message);
-    else {
-      alert("✅ Thêm sản phẩm thành công!");
+    if (editingProduct) {
+      const { id, ...updateData } = editingProduct;
+      const { error } = await supabase
+        .from("product1")
+        .update(updateData)
+        .eq("id", id);
+      if (!error) alert("✅ Cập nhật thành công!");
+      setEditingProduct(null);
+    } else {
+      const { error } = await supabase.from("product1").insert([newProduct]);
+      if (!error) alert("✅ Thêm sản phẩm thành công!");
       setNewProduct({
         title: "",
         price: 0,
@@ -62,154 +61,120 @@ const ListProducts_SP_Admin: React.FC = () => {
         rating_rate: 0,
         rating_count: 0,
       });
-      fetchProducts();
     }
+    fetchProducts();
   };
 
-  // ✅ Sửa sản phẩm
-  const handleEdit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!editingProduct) return;
-    const { id, ...updated } = editingProduct;
-    const { error } = await supabase
-      .from("product1")
-      .update(updated)
-      .eq("id", id);
-    if (error) alert("❌ Lỗi khi cập nhật sản phẩm: " + error.message);
-    else {
-      alert("✅ Đã cập nhật!");
-      setEditingProduct(null);
-      fetchProducts();
-    }
-  };
-
-  // ✅ Xóa sản phẩm
   const handleDelete = async (id: number) => {
-    if (window.confirm("Bạn chắc chắn muốn xóa?")) {
-      const { error } = await supabase.from("product1").delete().eq("id", id);
-      if (error) alert("❌ Lỗi khi xóa: " + error.message);
-      else {
-        alert("🗑️ Xóa thành công!");
-        fetchProducts();
-      }
+    if (window.confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
+      await supabase.from("product1").delete().eq("id", id);
+      fetchProducts();
     }
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-semibold mb-8 text-center text-blue-600">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-6">
+      <h2 className="text-3xl font-bold text-center text-blue-700 mb-10">
         🛠️ Quản lý sản phẩm (Admin)
       </h2>
 
       {/* Form thêm/sửa */}
       <form
-        onSubmit={editingProduct ? handleEdit : handleAdd}
-        className="bg-white shadow-md rounded-lg p-6 mb-10 max-w-2xl mx-auto"
+        onSubmit={handleAddOrEdit}
+        className="bg-white shadow-lg border border-gray-200 rounded-2xl p-6 w-full max-w-3xl mx-auto"
       >
-        <h3 className="text-xl font-medium mb-4">
+        <h3 className="text-xl font-semibold text-gray-700 mb-4">
           {editingProduct ? "✏️ Chỉnh sửa sản phẩm" : "➕ Thêm sản phẩm mới"}
         </h3>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             name="title"
-            placeholder="Tên sản phẩm"
-            value={editingProduct ? editingProduct.title : newProduct.title}
+            value={editingProduct?.title ?? newProduct.title}
             onChange={handleChange}
-            className="border rounded-md p-2"
-            required
+            placeholder="Tên sản phẩm"
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="price"
             type="number"
-            placeholder="Giá"
-            value={editingProduct ? editingProduct.price : newProduct.price}
+            value={editingProduct?.price ?? newProduct.price}
             onChange={handleChange}
-            className="border rounded-md p-2"
-            required
+            placeholder="Giá sản phẩm"
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="image"
-            placeholder="URL hình ảnh"
-            value={editingProduct ? editingProduct.image : newProduct.image}
+            value={editingProduct?.image ?? newProduct.image}
             onChange={handleChange}
-            className="border rounded-md p-2 col-span-2"
+            placeholder="Link ảnh sản phẩm"
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none col-span-1 md:col-span-2"
           />
           <input
             name="rating_rate"
             type="number"
             step="0.1"
-            placeholder="Đánh giá (0–5)"
-            value={
-              editingProduct
-                ? editingProduct.rating_rate
-                : newProduct.rating_rate
-            }
+            value={editingProduct?.rating_rate ?? newProduct.rating_rate}
             onChange={handleChange}
-            className="border rounded-md p-2"
+            placeholder="Đánh giá (0 - 5)"
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="rating_count"
             type="number"
-            placeholder="Số lượt đánh giá"
-            value={
-              editingProduct
-                ? editingProduct.rating_count
-                : newProduct.rating_count
-            }
+            value={editingProduct?.rating_count ?? newProduct.rating_count}
             onChange={handleChange}
-            className="border rounded-md p-2"
+            placeholder="Số lượt đánh giá"
+            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
         </div>
 
-        <div className="flex justify-end mt-4 gap-2">
+        <div className="flex justify-end gap-3 mt-4">
           {editingProduct && (
             <button
               type="button"
               onClick={() => setEditingProduct(null)}
-              className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500"
+              className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500"
             >
               Hủy
             </button>
           )}
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
-            {editingProduct ? "Lưu thay đổi" : "Thêm sản phẩm"}
+            {editingProduct ? "💾 Lưu lại" : "➕ Thêm mới"}
           </button>
         </div>
       </form>
 
-      {/* Grid sản phẩm */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* Danh sách sản phẩm */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
         {products.map((p) => (
           <div
             key={p.id}
-            className="bg-white shadow-sm rounded-xl p-4 border hover:shadow-lg transition transform hover:-translate-y-1"
+            className="bg-white rounded-xl p-4 shadow-sm border hover:shadow-lg hover:-translate-y-1 transition-all"
           >
-            <div className="flex items-center justify-center mb-3">
-              <img
-                src={p.image}
-                alt={p.title}
-                className="w-20 h-20 object-cover rounded-md border"
-              />
-            </div>
-            <h4 className="font-semibold text-md mb-1 truncate">{p.title}</h4>
-            <p className="text-red-500 font-bold mb-1">${p.price}</p>
-            <p className="text-sm text-gray-600 mb-3">
+            <img
+              src={p.image}
+              alt={p.title}
+              className="w-24 h-24 mx-auto rounded-lg object-cover mb-3"
+            />
+            <h4 className="font-semibold truncate">{p.title}</h4>
+            <p className="text-red-500 font-bold">${p.price}</p>
+            <p className="text-sm text-gray-500">
               ⭐ {p.rating_rate} ({p.rating_count})
             </p>
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-3">
               <button
                 onClick={() => setEditingProduct(p)}
-                className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 text-sm"
+                className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 text-sm"
               >
                 Sửa
               </button>
               <button
                 onClick={() => handleDelete(p.id)}
-                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm"
+                className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm"
               >
                 Xóa
               </button>
