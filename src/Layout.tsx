@@ -32,6 +32,11 @@ const Layout = () => {
                   SẢN PHẨM
                 </Link>
               </li>
+              <li>
+                <Link className="menutrai" to="/admin/products">
+                  Quản Trị
+                </Link>
+              </li>
             </ul>
           </nav>
 
