@@ -84,11 +84,13 @@ const ListProducts_SP_Admin: React.FC = () => {
     <div className="admin-page">
       <header className="admin-header">
         <h1>🛠️ Quản lý sản phẩm</h1>
-        <button onClick={handleLogout} className="logout-btn">
-          🚪 Thoát
-        </button>
       </header>
-
+      <button
+        onClick={handleLogout}
+        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+      >
+        🚪 Thoát
+      </button>
       <form onSubmit={handleAddOrEdit} className="admin-form">
         <h2>
           {editingProduct ? "✏️ Chỉnh sửa sản phẩm" : "➕ Thêm sản phẩm mới"}

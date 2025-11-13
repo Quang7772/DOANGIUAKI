@@ -15,6 +15,7 @@ import ListProducts_SP from "./ListProducts_SP";
 import ProductDetail from "./ProductDetail";
 import LoginPage from "./LoginPage";
 import LogoutPage from "./LogoutPage";
+import RegisterPage from "./RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import ListProducts_SP_Admin from "./ListProducts_SP_Admin";
 
@@ -36,6 +37,7 @@ const App: React.FC = () => {
           {/* Đăng nhập, đăng xuất */}
           <Route path="login" element={<LoginPage />} />
           <Route path="logout" element={<LogoutPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
           {/* Trang Admin - Có bảo vệ */}
           <Route

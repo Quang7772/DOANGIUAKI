@@ -1,308 +1,167 @@
-/* 🌐 ========== RESET ========== */
+/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
-  font-family: "Inter", "Poppins", sans-serif;
-  background: linear-gradient(180deg, #fdfdfd, #f7f7f7);
-  color: #222;
-  line-height: 1.6;
-  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+  background-color: #fafafa;
+  color: #333;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* 🌟 ========== BANNER ========== */
-.banner {
-  height: 130px;
-  background: linear-gradient(135deg, #ffffff, #f5f5f5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
-}
-
-.banner img {
-  max-height: 100px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-}
-
-/* 🧭 ========== HEADER & MENU ========== */
-.header {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #eee;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.menutrai {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  padding: 14px 0;
+/* ========== HEADER ========== */
+.shop-header {
   background-color: #fff;
-  border-bottom: 1px solid #f1f1f1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+.top-bar {
+  background: #e60023;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 6px 0;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+.shop-logo {
+  height: 60px;
+  object-fit: contain;
+}
+.search-area {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+}
+.search-area input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #e60023;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+}
+.search-area button {
+  padding: 10px 18px;
+  background: #e60023;
+  color: white;
+  border: none;
+  border-radius: 0 30px 30px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.search-area button:hover {
+  background: #c1001c;
+}
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.user-area a {
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.user-area a:hover {
+  color: #e60023;
 }
 
-#menutrai ul {
+/* ========== NAV MENU ========== */
+.nav-bar {
+  background: #f7f7f7;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.nav-bar ul {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 30px;
+  padding: 10px 0;
   list-style: none;
 }
-
-/* 🌺 Liên kết menu */
-a.menutrai {
-  color: #b22d30;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 8px 18px;
-  border-radius: 8px;
-  letter-spacing: 0.3px;
-  transition: all 0.25s ease-in-out;
-}
-
-a.menutrai:hover {
-  color: #fff;
-  background: linear-gradient(135deg, #b22d30, #e73e41);
-  box-shadow: 0 4px 12px rgba(178, 45, 48, 0.35);
-  transform: translateY(-2px);
-}
-
-/* 🔥 Thanh đỏ nổi bật */
-.menubar {
-  background: linear-gradient(135deg, #b22d30, #d9393b);
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
+.nav-bar a {
   font-weight: 600;
-  letter-spacing: 1px;
-  font-size: 15px;
-  text-transform: uppercase;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  position: relative;
-  overflow: hidden;
+  color: #333;
+  transition: color 0.3s;
+}
+.nav-bar a:hover {
+  color: #e60023;
 }
 
-.menubar::after {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.25);
-  top: -40px;
-  left: -40px;
-  border-radius: 50%;
-  animation: pulse 5s infinite ease-in-out;
+/* ========== MAIN CONTENT ========== */
+.shop-content {
+  padding: 40px 0;
+  min-height: 70vh;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 0.1;
-  }
+/* ========== FOOTER ========== */
+.shop-footer {
+  background: #222;
+  color: #eee;
+  padding: 50px 0 20px;
 }
-
-/* 🖼️ ========== CAROUSEL ========== */
-.carousel {
-  margin-top: 15px;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-}
-
-.carousel img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  transition: transform 0.8s ease;
-}
-
-.carousel img:hover {
-  transform: scale(1.05);
-}
-
-/* 💎 ========== FOOTER (2025 Edition) ========== */
-.footer {
-  background: linear-gradient(135deg, #b22d30, #e03b3f);
-  color: #fff;
-  padding-top: 50px;
-  margin-top: 80px;
-  font-family: "Inter", "Poppins", sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-
 .footer-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  padding: 0 10%;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 30px;
 }
-
-.footer-logo {
-  width: 160px;
-  margin-bottom: 12px;
-  filter: brightness(0) invert(1);
-}
-
-.footer-desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: #f4f4f4;
-}
-
 .footer-col h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 14px;
-  position: relative;
-  letter-spacing: 0.3px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #fff;
 }
-
-.footer-col h4::after {
-  content: "";
-  position: absolute;
-  width: 45px;
-  height: 2px;
-  background-color: #fff;
-  bottom: -6px;
-  left: 0;
-  border-radius: 2px;
+.footer-col p,
+.footer-col li {
+  font-size: 14px;
+  line-height: 1.7;
 }
-
 .footer-col ul {
   list-style: none;
-  padding: 0;
 }
-
-.footer-col ul li {
-  margin-bottom: 8px;
+.footer-col a:hover {
+  color: #e60023;
 }
-
-.footer-col ul li a {
-  color: #f3f3f3;
-  text-decoration: none;
-  transition: color 0.3s ease, transform 0.2s ease;
+.social-icons a {
+  font-size: 20px;
+  color: #eee;
+  margin-right: 10px;
+  transition: color 0.3s;
 }
-
-.footer-col ul li a:hover {
-  color: #ffe5e5;
-  transform: translateX(3px);
+.social-icons a:hover {
+  color: #e60023;
 }
-
-.footer-col p {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-/* 🌐 Mạng xã hội */
-.social-links {
-  display: flex;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-.social-links a {
-  color: #fff;
-  font-size: 18px;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-links a:hover {
-  transform: scale(1.15);
-  color: #ffe8e8;
-}
-
-/* ⛓️ Dòng cuối */
 .footer-bottom {
   text-align: center;
-  padding: 18px 0;
+  padding-top: 10px;
   font-size: 14px;
-  background-color: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(4px);
+  color: #aaa;
+  border-top: 1px solid #333;
 }
-
-/* 💫 Hiệu ứng nền gradient nhẹ */
-.footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-      circle at top right,
-      rgba(255, 255, 255, 0.08),
-      transparent 70%
-    ),
-    radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.12), transparent 70%);
-  animation: footerGlow 10s infinite alternate ease-in-out;
+.logout-btn {
+  padding: 8px 14px;
+  background: #e60023;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
 }
-
-@keyframes footerGlow {
-  from {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-/* 📱 ========== RESPONSIVE ========== */
-@media (max-width: 992px) {
-  .menutrai {
-    flex-direction: column;
-    gap: 12px;
-    padding: 10px 0;
-  }
-
-  #menutrai ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .banner {
-    height: auto;
-    padding: 15px;
-  }
-
-  .banner img {
-    max-height: 80px;
-  }
-
-  .menubar {
-    font-size: 14px;
-    text-align: center;
-    padding: 12px 8px;
-  }
-
-  .footer-container {
-    padding: 0 6%;
-    text-align: center;
-  }
-
-  .footer-col h4::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .social-links {
-    justify-content: center;
-  }
+.logout-btn:hover {
+  background: #b4001a;
 }

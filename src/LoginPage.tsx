@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { supabase } from "./supabaseClient"; // ✅ import supabase
 import anhlogo1 from "./asset/CSS/images/keylogin.png";
 import "./asset/CSS/login.css";
 
@@ -9,23 +10,44 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
-      if (username.trim() && password.trim()) {
+    if (!username.trim() || !password.trim()) {
+      alert("❌ Vui lòng nhập đầy đủ thông tin!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // ✅ Truy vấn Supabase bảng `users`
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("username", username)
+        .eq("password", password) // demo: plain text
+        .maybeSingle();
+
+      if (error) {
+        alert("❌ Lỗi kết nối với server!");
+      } else if (!data) {
+        alert("❌ Sai tên đăng nhập hoặc mật khẩu!");
+      } else {
+        // Lưu thông tin user vào localStorage (dùng trong app)
         localStorage.setItem(
           "user",
-          JSON.stringify({ username, role: "user" })
+          JSON.stringify({ username: data.username })
         );
         alert("✅ Đăng nhập thành công!");
-        navigate("/");
-      } else {
-        alert("❌ Vui lòng nhập đầy đủ thông tin!");
+        navigate("/"); // chuyển về trang chính
       }
-      setLoading(false);
-    }, 1000);
+    } catch (err) {
+      console.error(err);
+      alert("❌ Có lỗi xảy ra!");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -61,28 +83,9 @@ const LoginPage = () => {
             {loading ? "⏳ Đang xử lý..." : "Đăng nhập"}
           </button>
         </form>
-
         <p className="register-link">
-          Bạn chưa có tài khoản? <a href="#">Tạo tài khoản mới</a>
+          Bạn chưa có tài khoản? <Link to="/register">Tạo tài khoản mới</Link>
         </p>
-
-        <div className="social-login">
-          <button className="social-btn google">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png"
-              alt="Google"
-            />
-            <span>Đăng nhập Google</span>
-          </button>
-
-          <button className="social-btn facebook">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-              alt="Facebook"
-            />
-            <span>Facebook</span>
-          </button>
-        </div>
       </div>
     </div>
   );
