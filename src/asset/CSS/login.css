@@ -1,191 +1,131 @@
-/* 🌐 Modern Login Page – Refined Glass Edition (2025)
-   Inspired by Google / Meta design language */
+/* 🌐 Modern Login Style inspired by Google / Facebook (2025) */
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap");
-
-:root {
-  --primary: #1a73e8;
-  --primary-hover: #1669c1;
-  --text-main: #202124;
-  --text-sub: #5f6368;
-  --bg: #f7f9fc;
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --border: #dadce0;
-}
-
 body {
   font-family: "Google Sans", Roboto, sans-serif;
-  background: linear-gradient(135deg, #e8f0fe 0%, #f7f9fc 100%);
+  background: #f7f9fc;
+  margin: 0;
+  padding: 0;
+}
+.login-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  margin: 0;
+  min-height: 90vh;
 }
-
-/* --- CARD --- */
 .login-card {
-  width: 400px;
-  padding: 48px 40px;
-  border-radius: 20px;
-  background: var(--card-bg);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(10px);
+  background: #fff;
+  width: 380px;
+  padding: 40px 36px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease;
 }
-
 .login-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
-
-/* --- HEADER --- */
 .login-logo {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 10px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
 }
-
 .login-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-main);
-  margin: 8px 0;
+  font-size: 22px;
+  color: #202124;
+  margin: 6px 0;
 }
-
 .login-subtitle {
-  color: var(--text-sub);
-  font-size: 15px;
-  margin-bottom: 28px;
+  color: #5f6368;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
-
-/* --- FORM --- */
 .login-form {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
-
 .form-group label {
-  font-size: 13.5px;
+  font-size: 13px;
   color: #555;
-  font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   display: block;
 }
-
 .form-group input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
   font-size: 15px;
   outline: none;
-  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: 0.2s;
 }
-
-.form-group input:hover {
-  background: #f8faff;
-}
-
 .form-group input:focus {
-  border-color: var(--primary);
+  border-color: #1a73e8;
   box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.15);
 }
-
-/* --- BUTTON --- */
 button[type="submit"] {
   width: 100%;
   margin-top: 8px;
-  padding: 13px 0;
-  background: linear-gradient(90deg, var(--primary) 0%, #4285f4 100%);
+  padding: 12px 0;
+  background: #1a73e8;
   color: white;
   border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 15.5px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 15px;
   cursor: pointer;
   transition: 0.25s ease;
-  letter-spacing: 0.3px;
 }
-
 button[type="submit"]:hover {
-  background: linear-gradient(90deg, var(--primary-hover) 0%, #2f5bb7 100%);
-  transform: translateY(-1px);
+  background: #1669c1;
 }
-
 button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
-/* --- REGISTER LINK --- */
 .register-link {
-  margin-top: 20px;
-  font-size: 14px;
-  color: var(--text-sub);
+  margin-top: 18px;
+  font-size: 13.5px;
+  color: #5f6368;
 }
-
 .register-link a {
-  color: var(--primary);
+  color: #1a73e8;
   text-decoration: none;
-  font-weight: 500;
 }
-
 .register-link a:hover {
   text-decoration: underline;
-}
-
-/* --- SOCIAL LOGIN --- */
+} /* --- Social Buttons --- */
 .social-login {
-  margin-top: 28px;
+  margin-top: 24px;
   display: flex;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
 }
-
 .social-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 18px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
   background: #fff;
   font-size: 14px;
   font-weight: 500;
   color: #3c4043;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s, box-shadow 0.2s;
 }
-
 .social-btn img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
-
 .social-btn:hover {
   background: #f1f3f4;
-  transform: translateY(-1px);
 }
-
 .google span {
   color: #202124;
 }
-
 .facebook span {
   color: #1877f2;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 480px) {
-  .login-card {
-    width: 90%;
-    padding: 36px 28px;
-  }
-
-  .login-title {
-    font-size: 20px;
-  }
 }

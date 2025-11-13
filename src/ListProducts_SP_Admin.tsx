@@ -1,6 +1,7 @@
-// ✅ ListProducts_SP_Admin.tsx — UI Nâng Cấp
+// ✅ ListProducts_SP_Admin.tsx — UI Nâng Cấp + Nút Thoát
 import React, { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -22,6 +23,9 @@ const ListProducts_SP_Admin: React.FC = () => {
     rating_count: 0,
   });
 
+  const navigate = useNavigate();
+
+  // 🔹 Lấy danh sách sản phẩm
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("product1")
@@ -34,6 +38,7 @@ const ListProducts_SP_Admin: React.FC = () => {
     fetchProducts();
   }, []);
 
+  // 🔹 Xử lý thay đổi input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     editingProduct
@@ -41,6 +46,7 @@ const ListProducts_SP_Admin: React.FC = () => {
       : setNewProduct({ ...newProduct, [name]: value });
   };
 
+  // 🔹 Thêm hoặc chỉnh sửa
   const handleAddOrEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editingProduct) {
@@ -65,6 +71,7 @@ const ListProducts_SP_Admin: React.FC = () => {
     fetchProducts();
   };
 
+  // 🔹 Xóa sản phẩm
   const handleDelete = async (id: number) => {
     if (window.confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
       await supabase.from("product1").delete().eq("id", id);
@@ -72,11 +79,26 @@ const ListProducts_SP_Admin: React.FC = () => {
     }
   };
 
+  // 🔹 Thoát về trang đăng nhập
+  const handleLogout = () => {
+    localStorage.removeItem("user"); // Xóa thông tin người dùng
+    navigate("/login"); // Điều hướng về trang đăng nhập
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-6">
-      <h2 className="text-3xl font-bold text-center text-blue-700 mb-10">
-        🛠️ Quản lý sản phẩm (Admin)
-      </h2>
+      {/* Thanh tiêu đề + nút thoát */}
+      <div className="flex justify-between items-center max-w-5xl mx-auto mb-10">
+        <h2 className="text-3xl font-bold text-blue-700">
+          🛠️ Quản lý sản phẩm (Admin)
+        </h2>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+        >
+          🚪 Thoát
+        </button>
+      </div>
 
       {/* Form thêm/sửa */}
       <form
