@@ -1,7 +1,7 @@
-// ✅ ListProducts_SP_Admin.tsx — UI Nâng Cấp + Nút Thoát
 import React, { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
 import { useNavigate } from "react-router-dom";
+import "./asset/CSS/ListProducts_SP_Admin.css";
 
 interface Product {
   id: number;
@@ -25,7 +25,6 @@ const ListProducts_SP_Admin: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // 🔹 Lấy danh sách sản phẩm
   const fetchProducts = async () => {
     const { data, error } = await supabase
       .from("product1")
@@ -38,7 +37,6 @@ const ListProducts_SP_Admin: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // 🔹 Xử lý thay đổi input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     editingProduct
@@ -46,7 +44,6 @@ const ListProducts_SP_Admin: React.FC = () => {
       : setNewProduct({ ...newProduct, [name]: value });
   };
 
-  // 🔹 Thêm hoặc chỉnh sửa
   const handleAddOrEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editingProduct) {
@@ -71,7 +68,6 @@ const ListProducts_SP_Admin: React.FC = () => {
     fetchProducts();
   };
 
-  // 🔹 Xóa sản phẩm
   const handleDelete = async (id: number) => {
     if (window.confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) {
       await supabase.from("product1").delete().eq("id", id);
@@ -79,43 +75,30 @@ const ListProducts_SP_Admin: React.FC = () => {
     }
   };
 
-  // 🔹 Thoát về trang đăng nhập
   const handleLogout = () => {
-    localStorage.removeItem("user"); // Xóa thông tin người dùng
-    navigate("/login"); // Điều hướng về trang đăng nhập
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-6">
-      {/* Thanh tiêu đề + nút thoát */}
-      <div className="flex justify-between items-center max-w-5xl mx-auto mb-10">
-        <h2 className="text-3xl font-bold text-blue-700">
-          🛠️ Quản lý sản phẩm (Admin)
-        </h2>
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-        >
+    <div className="admin-page">
+      <header className="admin-header">
+        <h1>🛠️ Quản lý sản phẩm</h1>
+        <button onClick={handleLogout} className="logout-btn">
           🚪 Thoát
         </button>
-      </div>
+      </header>
 
-      {/* Form thêm/sửa */}
-      <form
-        onSubmit={handleAddOrEdit}
-        className="bg-white shadow-lg border border-gray-200 rounded-2xl p-6 w-full max-w-3xl mx-auto"
-      >
-        <h3 className="text-xl font-semibold text-gray-700 mb-4">
+      <form onSubmit={handleAddOrEdit} className="admin-form">
+        <h2>
           {editingProduct ? "✏️ Chỉnh sửa sản phẩm" : "➕ Thêm sản phẩm mới"}
-        </h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        </h2>
+        <div className="form-grid">
           <input
             name="title"
             value={editingProduct?.title ?? newProduct.title}
             onChange={handleChange}
             placeholder="Tên sản phẩm"
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="price"
@@ -123,14 +106,13 @@ const ListProducts_SP_Admin: React.FC = () => {
             value={editingProduct?.price ?? newProduct.price}
             onChange={handleChange}
             placeholder="Giá sản phẩm"
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="image"
             value={editingProduct?.image ?? newProduct.image}
             onChange={handleChange}
             placeholder="Link ảnh sản phẩm"
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none col-span-1 md:col-span-2"
+            className="col-span-2"
           />
           <input
             name="rating_rate"
@@ -139,7 +121,6 @@ const ListProducts_SP_Admin: React.FC = () => {
             value={editingProduct?.rating_rate ?? newProduct.rating_rate}
             onChange={handleChange}
             placeholder="Đánh giá (0 - 5)"
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
           <input
             name="rating_count"
@@ -147,57 +128,39 @@ const ListProducts_SP_Admin: React.FC = () => {
             value={editingProduct?.rating_count ?? newProduct.rating_count}
             onChange={handleChange}
             placeholder="Số lượt đánh giá"
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
         </div>
 
-        <div className="flex justify-end gap-3 mt-4">
+        <div className="form-actions">
           {editingProduct && (
             <button
               type="button"
               onClick={() => setEditingProduct(null)}
-              className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500"
+              className="cancel-btn"
             >
               Hủy
             </button>
           )}
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
+          <button type="submit" className="submit-btn">
             {editingProduct ? "💾 Lưu lại" : "➕ Thêm mới"}
           </button>
         </div>
       </form>
 
-      {/* Danh sách sản phẩm */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
+      <div className="product-grid">
         {products.map((p) => (
-          <div
-            key={p.id}
-            className="bg-white rounded-xl p-4 shadow-sm border hover:shadow-lg hover:-translate-y-1 transition-all"
-          >
-            <img
-              src={p.image}
-              alt={p.title}
-              className="w-24 h-24 mx-auto rounded-lg object-cover mb-3"
-            />
-            <h4 className="font-semibold truncate">{p.title}</h4>
-            <p className="text-red-500 font-bold">${p.price}</p>
-            <p className="text-sm text-gray-500">
+          <div className="product-card" key={p.id}>
+            <img src={p.image} alt={p.title} />
+            <h3>{p.title}</h3>
+            <p className="price">${p.price}</p>
+            <p className="rating">
               ⭐ {p.rating_rate} ({p.rating_count})
             </p>
-            <div className="flex justify-between mt-3">
-              <button
-                onClick={() => setEditingProduct(p)}
-                className="px-3 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 text-sm"
-              >
+            <div className="card-actions">
+              <button onClick={() => setEditingProduct(p)} className="edit-btn">
                 Sửa
               </button>
-              <button
-                onClick={() => handleDelete(p.id)}
-                className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm"
-              >
+              <button onClick={() => handleDelete(p.id)} className="delete-btn">
                 Xóa
               </button>
             </div>
